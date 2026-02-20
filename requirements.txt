@@ -6,7 +6,7 @@ pycoingecko
 glom
 defillama
 statsmodels
-pandas_ta
+pandas-ta
 sqlalchemy
 pyyaml
 pandas
