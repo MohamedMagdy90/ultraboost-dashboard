@@ -6,6 +6,8 @@ secondaryBackgroundColor="#1a1a2e"
 textColor="#fafafa"
 font="monospace"
 [server]
-port=8501
 maxUploadSize = 700
 headless = true
+address = "0.0.0.0"
+enableCORS = false
+enableXsrfProtection = false
