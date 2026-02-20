@@ -1,0 +1,11 @@
+[theme]
+base="dark"
+primaryColor="#FF8C00"
+backgroundColor="#0e1117"
+secondaryBackgroundColor="#1a1a2e"
+textColor="#fafafa"
+font="monospace"
+[server]
+port=8501
+maxUploadSize = 700
+headless = true
