@@ -2,14 +2,18 @@ import inspect
 import os.path
 from pathlib import Path
 from typing import Optional, Union
+
 import pandas as pd
 import streamlit as st
 import streamlit_authenticator as stauth
 import yaml
 from streamlit.commands.page_config import InitialSideBarState, Layout
 from yaml import SafeLoader
+
 from CONFIG import AUTH_SYSTEM_ENABLED
 from frontend.pages.permissions import main_page, private_pages, public_pages
+
+
 def initialize_st_page(title: Optional[str] = None, icon: str = "🤖", layout: Layout = 'wide',
                        initial_sidebar_state: InitialSideBarState = "expanded",
                        show_readme: bool = True):
@@ -41,6 +45,8 @@ def initialize_st_page(title: Optional[str] = None, icon: str = "🤖", layout: 
         else:
             # Only show expander if README exists
             pass
+
+
 def download_csv_button(df: pd.DataFrame, filename: str, key: str):
     csv = df.to_csv(index=False).encode('utf-8')
     return st.download_button(
@@ -50,13 +56,39 @@ def download_csv_button(df: pd.DataFrame, filename: str, key: str):
         mime="text/csv",
         key=key
     )
+
+
 def style_metric_cards():
     # Removed custom metric styling to use default Streamlit styling
     pass
+
+
 def get_backend_api_client():
-    import atexit
-    from hummingbot_api_client import SyncHummingbotAPIClient
-    from CONFIG import BACKEND_API_HOST, BACKEND_API_PASSWORD, BACKEND_API_PORT, BACKEND_API_USERNAME
+    """
+    Get the backend API client for Hummingbot integration.
+
+    Note: This requires hummingbot_api_client package and a running backend server.
+    Returns None if the package is not available.
+    """
+    try:
+        import atexit
+        from hummingbot_api_client import SyncHummingbotAPIClient
+        from CONFIG import BACKEND_API_HOST, BACKEND_API_PASSWORD, BACKEND_API_PORT, BACKEND_API_USERNAME
+    except ImportError:
+        st.error("""
+        **Backend API Client Not Available**
+
+        The `hummingbot_api_client` package is not installed. This is required for:
+        - Bot orchestration features
+        - Live trading integration
+        - Real-time performance monitoring
+
+        To enable these features, install the package and configure your backend server.
+        For now, you can use the dashboard in demo mode.
+        """)
+        st.stop()
+        return None
+
     # Use Streamlit session state to store singleton instance
     if 'backend_api_client' not in st.session_state or st.session_state.backend_api_client is None:
         try:
@@ -66,13 +98,16 @@ def get_backend_api_client():
                 base_url = f"http://{BACKEND_API_HOST}:{BACKEND_API_PORT}"
             else:
                 base_url = f"{BACKEND_API_HOST}:{BACKEND_API_PORT}"
+
             client = SyncHummingbotAPIClient(
                 base_url=base_url,
                 username=BACKEND_API_USERNAME,
                 password=BACKEND_API_PASSWORD
             )
+
             # Initialize the client using context manager
             client.__enter__()
+
             # Register cleanup function to properly exit the context manager
             def cleanup_client():
                 try:
@@ -81,22 +116,30 @@ def get_backend_api_client():
                         st.session_state.backend_api_client = None
                 except Exception:
                     pass  # Ignore cleanup errors
+
             # Register cleanup with atexit and session state
             atexit.register(cleanup_client)
+
             if 'cleanup_registered' not in st.session_state:
                 st.session_state.cleanup_registered = True
                 # Also register cleanup for session state changes
                 st.session_state.backend_api_client_cleanup = cleanup_client
+
             # Check Docker after initialization
             if not client.docker.is_running():
                 st.error("Docker is not running. Please make sure Docker is running.")
                 cleanup_client()  # Clean up before stopping
                 st.stop()
+
             st.session_state.backend_api_client = client
+
         except Exception as e:
             st.error(f"Failed to initialize API client: {str(e)}")
             st.stop()
+
     return st.session_state.backend_api_client
+
+
 def auth_system():
     if not AUTH_SYSTEM_ENABLED:
         return {

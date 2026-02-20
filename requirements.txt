@@ -13,3 +13,4 @@ pyyaml
 pandas
 numpy
 python-dotenv
+nest_asyncio
