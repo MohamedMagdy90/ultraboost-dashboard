@@ -1,13 +1,12 @@
 import random
 from datetime import datetime, timedelta
+
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
-from frontend.st_utils import initialize_st_page
-initialize_st_page(
-    layout="wide",
-    show_readme=False
-)
+
+# Note: st.set_page_config is called in main.py before navigation
+
 # Custom CSS for enhanced styling with BoostNova branding
 st.markdown("""
 <style>
