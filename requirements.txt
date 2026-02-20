@@ -1,10 +1,13 @@
-- ccxt
-- streamlit>=1.36.0
-- watchdog
-- plotly
-- pycoingecko
-- glom
-- defillama
-- statsmodels
-- pandas_ta
-- sqlalchemy
+ccxt
+streamlit>=1.36.0
+watchdog
+plotly
+pycoingecko
+glom
+defillama
+statsmodels
+pandas_ta
+sqlalchemy
+pyyaml
+pandas
+numpy
