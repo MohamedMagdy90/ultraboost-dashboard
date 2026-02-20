@@ -1,5 +1,6 @@
 ccxt
 streamlit>=1.36.0
+streamlit-authenticator
 watchdog
 plotly
 pycoingecko
@@ -11,3 +12,4 @@ sqlalchemy
 pyyaml
 pandas
 numpy
+python-dotenv
