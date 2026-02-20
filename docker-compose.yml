@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  dashboard:
+    container_name: ultraboost-dashboard
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ultraboost/dashboard:latest
+    ports:
+      - "8501:8501"
+    environment:
+      - AUTH_SYSTEM_ENABLED=False
+      - BACKEND_API_HOST=127.0.0.1
+      - BACKEND_API_PORT=8000
+    volumes:
+      - ./data:/app/data
+      - ./ultraboost_files:/app/ultraboost_files
+    restart: unless-stopped
