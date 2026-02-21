@@ -1,6 +1,6 @@
-# Bollinger V1 Configuration Tool
+# Super Trend Configuration Tool
 
-Welcome to the Bollinger V1 Configuration Tool! This tool allows you to create, modify, visualize, backtest, and save configurations for the Bollinger V1 directional trading strategy. Here’s how you can make the most out of it.
+Welcome to the Super Trend Configuration Tool! This tool allows you to create, modify, visualize, backtest, and save configurations for the Super Trend directional trading strategy. Here’s how you can make the most out of it.
 
 ## Features
 
@@ -14,7 +14,7 @@ Welcome to the Bollinger V1 Configuration Tool! This tool allows you to create, 
 
 ### 1. Load Default Configuration
 
-Start by loading the default configuration for the Bollinger V1 strategy. This provides a baseline setup that you can customize to fit your needs.
+Start by loading the default configuration for the Super Trend strategy. This provides a baseline setup that you can customize to fit your needs.
 
 ### 2. User Inputs
 
@@ -30,20 +30,25 @@ Input various parameters for the strategy configuration. These parameters includ
 - **Candles Connector**: Select the data source for candlestick data.
 - **Candles Trading Pair**: Choose the trading pair for candlestick data.
 - **Interval**: Set the interval for candlestick data.
-- **Bollinger Bands Length**: Define the length of the Bollinger Bands.
-- **Standard Deviation Multiplier**: Set the standard deviation multiplier for the Bollinger Bands.
-- **Long Threshold**: Configure the threshold for long positions.
-- **Short Threshold**: Configure the threshold for short positions.
+- **Super Trend Length**: Define the length of the Super Trend indicator.
+- **Super Trend Multiplier**: Set the multiplier for the Super Trend indicator.
+- **Percentage Threshold**: Set the percentage threshold for signal generation.
 - **Risk Management**: Set parameters for stop loss, take profit, time limit, and trailing stop settings.
 
-### 3. Visualize Bollinger Bands
+### 3. Visualize Indicators
 
-Visualize the Bollinger Bands on the OHLC (Open, High, Low, Close) chart to see the impact of your configuration. Here are some hints to help you fine-tune the Bollinger Bands:
+Visualize the Super Trend indicator on the OHLC (Open, High, Low, Close) chart to see the impact of your configuration. Here are some hints to help you fine-tune the indicators:
 
-- **Bollinger Bands Length**: A larger length will make the Bollinger Bands wider and smoother, while a smaller length will make them narrower and more volatile.
-- **Long Threshold**: This is a reference to the Bollinger Band. A value of 0 means the lower band, and a value of 1 means the upper band. For example, if the long threshold is 0, long positions will only be taken if the price is below the lower band.
-- **Short Threshold**: Similarly, a value of 1.1 means the price must be above the upper band by 0.1 of the band’s range to take a short position.
-- **Thresholds**: The closer you set the thresholds to 0.5, the more trades will be executed. The farther away they are, the fewer trades will be executed.
+- **Super Trend Length**: A larger length will make the Super Trend indicator smoother and less sensitive to short-term price fluctuations, while a smaller length will make it more responsive to recent price changes.
+- **Super Trend Multiplier**: Adjusting the multiplier affects the sensitivity of the Super Trend indicator. A higher multiplier makes the trend detection more conservative, while a lower multiplier makes it more aggressive.
+- **Percentage Threshold**: This defines how close the price needs to be to the Super Trend band to generate a signal. For example, a 0.5% threshold means the price needs to be within 0.5% of the Super Trend band to consider a trade.
+
+### Combining Super Trend and Percentage Threshold for Trade Signals
+
+The Super Trend V1 strategy uses the Super Trend indicator combined with a percentage threshold to generate trade signals:
+
+- **Long Signal**: The Super Trend indicator must signal a long trend, and the price must be within the percentage threshold of the Super Trend long band. For example, if the threshold is 0.5%, the price must be within 0.5% of the Super Trend long band to trigger a long trade.
+- **Short Signal**: The Super Trend indicator must signal a short trend, and the price must be within the percentage threshold of the Super Trend short band. Similarly, if the threshold is 0.5%, the price must be within 0.5% of the Super Trend short band to trigger a short trade.
 
 ### 4. Executor Distribution
 

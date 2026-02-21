@@ -1,6 +1,6 @@
-# Bollinger V1 Configuration Tool
+# MACD BB V1 Configuration Tool
 
-Welcome to the Bollinger V1 Configuration Tool! This tool allows you to create, modify, visualize, backtest, and save configurations for the Bollinger V1 directional trading strategy. Here’s how you can make the most out of it.
+Welcome to the MACD BB V1 Configuration Tool! This tool allows you to create, modify, visualize, backtest, and save configurations for the MACD BB V1 directional trading strategy. Here’s how you can make the most out of it.
 
 ## Features
 
@@ -14,7 +14,7 @@ Welcome to the Bollinger V1 Configuration Tool! This tool allows you to create, 
 
 ### 1. Load Default Configuration
 
-Start by loading the default configuration for the Bollinger V1 strategy. This provides a baseline setup that you can customize to fit your needs.
+Start by loading the default configuration for the MACD BB V1 strategy. This provides a baseline setup that you can customize to fit your needs.
 
 ### 2. User Inputs
 
@@ -34,16 +34,29 @@ Input various parameters for the strategy configuration. These parameters includ
 - **Standard Deviation Multiplier**: Set the standard deviation multiplier for the Bollinger Bands.
 - **Long Threshold**: Configure the threshold for long positions.
 - **Short Threshold**: Configure the threshold for short positions.
+- **MACD Fast**: Set the fast period for the MACD indicator.
+- **MACD Slow**: Set the slow period for the MACD indicator.
+- **MACD Signal**: Set the signal period for the MACD indicator.
 - **Risk Management**: Set parameters for stop loss, take profit, time limit, and trailing stop settings.
 
-### 3. Visualize Bollinger Bands
+### 3. Visualize Indicators
 
-Visualize the Bollinger Bands on the OHLC (Open, High, Low, Close) chart to see the impact of your configuration. Here are some hints to help you fine-tune the Bollinger Bands:
+Visualize the Bollinger Bands and MACD on the OHLC (Open, High, Low, Close) chart to see the impact of your configuration. Here are some hints to help you fine-tune the indicators:
 
 - **Bollinger Bands Length**: A larger length will make the Bollinger Bands wider and smoother, while a smaller length will make them narrower and more volatile.
 - **Long Threshold**: This is a reference to the Bollinger Band. A value of 0 means the lower band, and a value of 1 means the upper band. For example, if the long threshold is 0, long positions will only be taken if the price is below the lower band.
 - **Short Threshold**: Similarly, a value of 1.1 means the price must be above the upper band by 0.1 of the band’s range to take a short position.
 - **Thresholds**: The closer you set the thresholds to 0.5, the more trades will be executed. The farther away they are, the fewer trades will be executed.
+- **MACD**: The MACD is used to determine trend changes. If the MACD value is negative and the histogram becomes positive, it signals a market trend up, suggesting a long position. Conversely, if the MACD value is positive and the histogram becomes negative, it signals a market trend down, suggesting a short position.
+
+### Combining MACD and Bollinger Bands for Trade Signals
+
+The MACD BB V1 strategy uses the MACD to identify potential trend changes and the Bollinger Bands to filter these signals:
+
+- **Long Signal**: The MACD value must be negative, and the histogram must become positive, indicating a potential uptrend. The price must also be below the long threshold of the Bollinger Bands (e.g., below the lower band if the threshold is 0).
+- **Short Signal**: The MACD value must be positive, and the histogram must become negative, indicating a potential downtrend. The price must also be above the short threshold of the Bollinger Bands (e.g., above the upper band if the threshold is 1.1).
+
+This combination ensures that you only take trend-following trades when the market is already deviated from the mean, enhancing the effectiveness of your trading strategy.
 
 ### 4. Executor Distribution
 
