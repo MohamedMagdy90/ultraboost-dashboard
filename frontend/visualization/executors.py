@@ -1,7 +1,7 @@
 from decimal import Decimal
 import pandas as pd
 import plotly.graph_objects as go
-from hummingbot.connector.connector_base import TradeType
+from frontend.utils.hummingbot_types import TradeType
 def add_executors_trace(fig, executors, row, col):
     for executor in executors:
         # Handle both dict and object formats

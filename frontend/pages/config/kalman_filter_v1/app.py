@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 import yaml
-from hummingbot.connector.connector_base import OrderType
+from frontend.utils.hummingbot_types import OrderType
 from plotly.subplots import make_subplots
 from pykalman import KalmanFilter
 

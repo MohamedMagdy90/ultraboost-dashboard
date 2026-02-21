@@ -3,7 +3,7 @@ from typing import List
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
-from hummingbot.strategy_v2.models.executors_info import ExecutorInfo
+from frontend.utils.hummingbot_types import ExecutorInfo
 
 
 def get_pnl_trace(executors: List[ExecutorInfo]):
@@ -14,7 +14,7 @@ def get_pnl_trace(executors: List[ExecutorInfo]):
     else:
         pnl = [e.net_pnl_quote for e in executors]
         timestamps = [e.close_timestamp for e in executors]
-    
+
     cum_pnl = np.cumsum(pnl)
     return go.Scatter(
         x=pd.to_datetime(timestamps, unit="s"),

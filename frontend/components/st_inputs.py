@@ -1,6 +1,6 @@
 from math import exp
 from _decimal import Decimal
-from hummingbot.strategy_v2.utils.distributions import Distributions
+from frontend.utils.distributions import Distributions
 def normalize(values):
     total = sum(values)
     return [val / total for val in values]
@@ -53,14 +53,14 @@ def distribution_inputs(column, dist_type_name, levels=3, default_values=None):
                                        key=f"{column}_{dist_type_name.lower()}_end")
     else:
         if default_values:
-            manual_values = [column.number_input(f"{dist_type_name} for level {i + 1}", 
+            manual_values = [column.number_input(f"{dist_type_name} for level {i + 1}",
                                                  value=value * 100.0,
                                                  min_value=0.01 if dist_type_name == "Amount" else 0.0,
                                                  help="Value must be greater than 0" if dist_type_name == "Amount" else None,
                                                  key=f"{column}_{dist_type_name.lower()}_{i}") for i, value in
                              enumerate(default_values)]
         else:
-            manual_values = [column.number_input(f"{dist_type_name} for level {i + 1}", 
+            manual_values = [column.number_input(f"{dist_type_name} for level {i + 1}",
                                                  value=i + 1.0,
                                                  min_value=0.01 if dist_type_name == "Amount" else 0.0,
                                                  help="Value must be greater than 0" if dist_type_name == "Amount" else None,

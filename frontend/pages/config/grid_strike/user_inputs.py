@@ -1,5 +1,5 @@
 import streamlit as st
-from hummingbot.core.data_type.common import OrderType, PositionMode, TradeType
+from frontend.utils.hummingbot_types import OrderType, PositionMode, TradeType
 
 from frontend.pages.config.utils import get_candles
 
@@ -78,21 +78,21 @@ def user_inputs():
                     format="%.2f",
                     help="Grid start price"
                 )
-                
+
                 end_price = st.number_input(
                     "End Price",
                     value=end_price,
                     format="%.2f",
                     help="Grid end price"
                 )
-                
+
                 limit_price = st.number_input(
                     "Limit Price",
                     value=limit_price,
                     format="%.2f",
                     help="Price limit to stop the strategy"
                 )
-            
+
             with c2:
                 # Grid spacing configuration
                 min_spread = st.number_input(
@@ -103,21 +103,21 @@ def user_inputs():
                     help="Minimum price difference between orders",
                     step=0.0001
                 )
-                
+
                 min_order_amount = st.number_input(
                     "Min Order Amount (Quote)",
                     min_value=1.0,
                     value=6.0,
                     help="Minimum amount for each order in quote currency"
                 )
-                
+
                 max_open_orders = st.number_input(
                     "Maximum Open Orders",
                     min_value=1,
                     value=3,
                     help="Maximum number of active orders in the grid"
                 )
-        
+
     with right_col:
         # Order configuration
         with st.expander("Order Configuration", expanded=True):
@@ -144,8 +144,8 @@ def user_inputs():
                     format="%.4f",
                     help="Price deviation to trigger updates"
                 )
-        
-        # Triple barrier configuration 
+
+        # Triple barrier configuration
         with st.expander("Triple Barrier Configuration", expanded=True):
             c1, c2 = st.columns(2)
             with c1:
@@ -157,7 +157,7 @@ def user_inputs():
                     index=1,  # Default to MARKET
                     key="open_order_type"
                 )
-                
+
                 take_profit_order_type_options = ["LIMIT", "LIMIT_MAKER", "MARKET"]
                 take_profit_order_type = st.selectbox(
                     "Take Profit Order Type",
@@ -175,7 +175,7 @@ def user_inputs():
                     format="%.4f",
                     help="Price movement percentage for take profit"
                 )
-                
+
                 stop_loss = st.number_input(
                     "Stop Loss",
                     min_value=0.0,
@@ -183,7 +183,7 @@ def user_inputs():
                     format="%.4f",
                     help="Price movement percentage for stop loss (0 for none)"
                 )
-                
+
                 # Keep position parameter
                 keep_position = st.checkbox(
                     "Keep Position",
@@ -216,10 +216,10 @@ def user_inputs():
                 )
 
 
-    
+
     # Convert stop_loss to None if it's zero
     stop_loss_value = stop_loss if stop_loss > 0 else None
-    
+
     # Prepare triple barrier config
     triple_barrier_config = {
         "open_order_type": OrderType[open_order_type],
@@ -253,4 +253,4 @@ def user_inputs():
         "triple_barrier_config": triple_barrier_config,
         "keep_position": keep_position,
         "candles_config": []
-    } 
+    }

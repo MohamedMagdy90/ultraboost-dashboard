@@ -1,6 +1,6 @@
 import plotly.graph_objects as go
 import streamlit as st
-from hummingbot.core.data_type.common import TradeType
+from frontend.utils.hummingbot_types import TradeType
 from plotly.subplots import make_subplots
 
 from frontend.components.config_loader import get_default_config_loader
@@ -16,7 +16,7 @@ from frontend.visualization.utils import add_traces_to_fig
 def get_grid_trace(start_price, end_price, limit_price):
     """Generate horizontal line traces for the grid with different colors."""
     traces = []
-    
+
     # Start price line
     traces.append(go.Scatter(
         x=[],  # Will be set to full range when plotting
@@ -26,7 +26,7 @@ def get_grid_trace(start_price, end_price, limit_price):
         name=f'Start Price: {float(start_price):,.2f}',
         hoverinfo='name'
     ))
-    
+
     # End price line
     traces.append(go.Scatter(
         x=[],  # Will be set to full range when plotting
@@ -36,7 +36,7 @@ def get_grid_trace(start_price, end_price, limit_price):
         name=f'End Price: {float(end_price):,.2f}',
         hoverinfo='name'
     ))
-    
+
     # Limit price line (if provided)
     if limit_price:
         traces.append(go.Scatter(
@@ -47,7 +47,7 @@ def get_grid_trace(start_price, end_price, limit_price):
             name=f'Limit Price: {float(limit_price):,.2f}',
             hoverinfo='name'
         ))
-    
+
     return traces
 
 
@@ -80,8 +80,8 @@ add_traces_to_fig(fig, [candlestick_trace], row=1, col=1)
 
 # Add grid visualization
 grid_traces = get_grid_trace(
-    inputs["start_price"], 
-    inputs["end_price"], 
+    inputs["start_price"],
+    inputs["end_price"],
     inputs["limit_price"]
 )
 
@@ -135,27 +135,27 @@ st.plotly_chart(fig, use_container_width=True)
 def prepare_config_for_save(config):
     """Prepare config for JSON serialization."""
     prepared_config = config.copy()
-    
+
     # Convert position mode enum to value
     prepared_config["position_mode"] = prepared_config["position_mode"].value
-    
+
     # Convert side to value
     prepared_config["side"] = prepared_config["side"].value
-    
+
     # Convert triple barrier order types to values
     if "triple_barrier_config" in prepared_config and prepared_config["triple_barrier_config"]:
         for key in ["open_order_type", "stop_loss_order_type", "take_profit_order_type", "time_limit_order_type"]:
             if key in prepared_config["triple_barrier_config"] and prepared_config["triple_barrier_config"][key] is not None:
                 prepared_config["triple_barrier_config"][key] = prepared_config["triple_barrier_config"][key].value
-    
+
     # Remove chart-specific fields
     del prepared_config["candles_connector"]
     del prepared_config["interval"]
     del prepared_config["days_to_visualize"]
-    
+
     return prepared_config
 
 
 # Render save config component
 render_save_config(st.session_state["default_config"]["id"],
-                   prepare_config_for_save(st.session_state["default_config"])) 
+                   prepare_config_for_save(st.session_state["default_config"]))

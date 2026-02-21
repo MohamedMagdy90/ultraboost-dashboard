@@ -2,7 +2,7 @@ from typing import Any, Dict, List
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
-from hummingbot.core.data_type.common import TradeType
+from frontend.utils.hummingbot_types import TradeType
 from backend.services.backend_api_client import BackendAPIClient
 from backend.utils.performance_data_source import PerformanceDataSource
 from frontend.st_utils import download_csv_button, get_backend_api_client

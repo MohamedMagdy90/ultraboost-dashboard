@@ -1,5 +1,5 @@
 import streamlit as st
-from hummingbot.connector.connector_base import OrderType
+from frontend.utils.hummingbot_types import OrderType
 def get_risk_management_inputs():
     default_config = st.session_state.get("default_config", {})
     sl = default_config.get("stop_loss", 0.05) * 100
