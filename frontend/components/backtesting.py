@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 import streamlit as st
+
 def backtesting_section(inputs, backend_api_client):
     st.write("### Backtesting")
     c1, c2, c3, c4, c5 = st.columns(5)
@@ -29,12 +30,24 @@ def backtesting_section(inputs, backend_api_client):
                 config=inputs,
             )
         except Exception as e:
-            st.error(e)
+            st.error(f"Backtesting failed: {e}")
+            st.warning("This may be due to: 1) Backend server geographic restrictions, 2) Exchange API unavailable, or 3) Invalid trading pair.")
             return None
-        if len(backtesting_results["processed_data"]) == 0:
+        
+        # Check if response has required keys
+        if not isinstance(backtesting_results, dict):
+            st.error("Invalid response from backend. Please check your configuration.")
+            return None
+            
+        if "processed_data" not in backtesting_results:
+            st.error("Backend did not return processed data. This may be due to:")
+            st.warning("1. Geographic restrictions on your backend server location\n2. Exchange API not accessible\n3. No historical data available for this trading pair")
+            return None
+            
+        if len(backtesting_results.get("processed_data", [])) == 0:
             st.error("No trades were executed during the backtesting period.")
             return None
-        if len(backtesting_results["executors"]) == 0:
+        if len(backtesting_results.get("executors", [])) == 0:
             st.error("No executors were found during the backtesting period.")
             return None
         return backtesting_results
