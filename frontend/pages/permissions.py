@@ -1,3 +1,4 @@
+# Dashboard Pages Configuration - v2
 import streamlit as st
 
 def main_page():
