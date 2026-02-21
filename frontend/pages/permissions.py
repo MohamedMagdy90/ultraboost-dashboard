@@ -1,9 +1,7 @@
 import streamlit as st
 
-
 def main_page():
     return [st.Page("frontend/pages/landing.py", title="UltraBoost Dashboard", icon="📊", url_path="landing")]
-
 
 def public_pages():
     return {
@@ -25,7 +23,6 @@ def public_pages():
         ]
     }
 
-
 def private_pages():
     return {
         "Bot Orchestration": [
@@ -36,7 +33,8 @@ def private_pages():
             st.Page("frontend/pages/orchestration/trading/app.py", title="Trading", icon="🪄", url_path="trading"),
             st.Page("frontend/pages/orchestration/archived_bots/app.py", title="Archived Bots", icon="🗃️", url_path="archived_bots"),
         ],
-        "Performance": [
-            st.Page("frontend/pages/performance/bot_performance/app.py", title="Bot Performance", icon="📈", url_path="bot_performance"),
-        ]
+        # Bot Performance temporarily disabled - requires backend modules
+        # "Performance": [
+        #     st.Page("frontend/pages/performance/bot_performance/app.py", title="Bot Performance", icon="📈", url_path="bot_performance"),
+        # ]
     }
