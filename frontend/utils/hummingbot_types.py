@@ -3,36 +3,37 @@ Local implementation of Hummingbot types to avoid hummingbot dependency.
 These are simple enums and classes used by the dashboard.
 """
 from enum import Enum
-from typing import Optional, Any
+from typing import Optional
 from dataclasses import dataclass
 
 
 class OrderType(Enum):
-    """Order type enum."""
-    LIMIT = "LIMIT"
-    MARKET = "MARKET"
-    LIMIT_MAKER = "LIMIT_MAKER"
-
+    """Order type enum - matches Hummingbot's integer values."""
+    MARKET = 1
+    LIMIT = 2
+    LIMIT_MAKER = 3
+    
     def __str__(self):
-        return self.value
+        return self.name
 
 
 class TradeType(Enum):
     """Trade type enum."""
-    BUY = "BUY"
-    SELL = "SELL"
-
+    BUY = 1
+    SELL = 2
+    RANGE = 3
+    
     def __str__(self):
-        return self.value
+        return self.name
 
 
 class PositionMode(Enum):
     """Position mode enum for futures trading."""
-    ONEWAY = "ONEWAY"
-    HEDGE = "HEDGE"
-
+    ONEWAY = 1
+    HEDGE = 2
+    
     def __str__(self):
-        return self.value
+        return self.name
 
 
 @dataclass
@@ -52,7 +53,7 @@ class ExecutorInfo:
     custom_info: Optional[dict] = None
     controller_id: Optional[str] = None
     side: Optional[str] = None
-
+    
     @classmethod
     def from_dict(cls, data: dict) -> "ExecutorInfo":
         """Create ExecutorInfo from dictionary."""
